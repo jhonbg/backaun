@@ -7,6 +7,8 @@ import com.backaun.core.dominio.RegisterRequest;
 import com.backaun.core.dominio.User;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.webresources.ClasspathURLStreamHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,10 +47,11 @@ public class AuthService {
                 .roleId(request.getRoleId())
                 .build();
 
-        userRepository.save(user);
 
-        return AuthRespose.builder()
-                .token(jwtService.getToken(user))
-                .build();
+            userRepository.save(user);
+
+            return AuthRespose.builder()
+                    .token(jwtService.getToken(user))
+                    .build();
     }
 }
